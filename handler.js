@@ -15,12 +15,12 @@ module.exports.validateImage = async (event) => {
   // Detect the labels
   return detectLabels(bucket, key).then(labels => {
     console.log(labels);
-    const isACat = checkIsACat(labels);
+    const isAHuman = checkIsHuman(labels);
 
-    console.log(isACat);
-    if (!isACat) {
+    console.log(isAHuman);
+    if (!isAHuman) {
       return removeImage(bucket, key).then(() => {
-        console.log('The image was not a cat and was removed');
+        console.log('The image was not a human and was removed');
         return;
       });
     }
@@ -29,6 +29,19 @@ module.exports.validateImage = async (event) => {
   })
 
 };
+
+
+//function part
+
+
+function checkIsHuman(labels){
+  return labels
+  .map(label => {
+    return label.Name === 'Human' ? true : false
+  }).some( val => {
+    return val === true;
+  });
+}
 
 function detectLabels(bucket, key) {
   const params = {
