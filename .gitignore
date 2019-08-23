@@ -1,9 +1,7 @@
 # package directories
 node_modules
 jspm_packages
-cat
-trump
-yoona
+
 # Serverless directories
 .serverless
 rekognition_test/
